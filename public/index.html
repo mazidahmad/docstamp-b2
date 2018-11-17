@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes">
+  <meta name="application-name" content="DocStamp.it">
+  <meta name="description" content="Notarize documents online, timestamp, ethereum, blockchain">
+  <meta name="keywords" content="notary, online, document, timestamp, ethereum, blockchain, smart contracts">
+  <meta name="robots" content="index,follow">
+  <meta name="googlebot" content="index,follow">
+  <title>docstamp.it - Notarize your documents on Ethereum</title>
+  <link rel="canonical" href="https://docstamp.it">
+  <link href="/css/style.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39494276-10"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-39494276-10');
+  </script>
+</head>
+<body>
+  <header id="header">
+  <h1>
+    <img src="https://user-images.githubusercontent.com/168240/39511732-55b8b16a-4da3-11e8-872d-2497788cca38.png" alt="docstamp.it" width="300" />
+    <span>Network: <strong id="networkType">-</strong>
+      <br><a id="etherscanLink" href="https://etherscan.io" target="_blank" rel="noopener noreferrer">etherscan</a>&nbsp;|&nbsp;
+      <a href="https://github.com/coincircle/docstamp.it" target="_blank" rel="noopener noreferrer">github</a>
+  </span></h1>
+    <small>Document Notarization on the Ethereum Blockchain</small>
+  </header>
+  <div id="formsContainer">
+    <form id="stampForm">
+      <div class="formTitle">
+        Stamp a Document
+        <small>Notarize your document, to later prove that you cryptographically signed it and had access to it.</small>
+      </div>
+      <div>
+        <label>File <small>Only the hash (Keccak-256) of the document is retrieved to be stored as the fingerprint; the actual contents are never stored anywhere.</small></label>
+        <input type="file" id="stampFile">
+      </div>
+      <div>
+        <label>Hash <small>The fingerprint of the document (Keccak-256 hash).</small></label>
+        <input type="text" readonly id="stampHash">
+      </div>
+      <div>
+        <button type="submit">Stamp it!</button>
+      </div>
+    </form>
+    <form id="checkForm">
+      <div class="formTitle">
+        Check Stamper of Document
+        <small>See who the signer of the document is.</small>
+      </div>
+      <div>
+        <label>File <small>Upload the original file to retrieve the document fingerprint; remember, nothing is ever stored.</small></label>
+        <input type="file" id="checkFile">
+      </div>
+      <div>
+        <label>Hash <small>The fingerprint of the document (Keccak-256 hash).</small></label>
+        <input type="text" readonly id="checkHash">
+      </div>
+      <div>
+        <button type="submit">Check Stamper</button>
+      </div>
+      <div class="formOutput">
+        <label>Stamper <small>The signer of the document.</small></label>
+        <input type="text" readonly id="checkStamper">
+      </div>
+      <div>
+        <label>Datetime <small>When the document was notarized.</small></label>
+        <input type="text" readonly id="checkDatetime">
+      </div>
+    </form>
+    <form id="genSigForm">
+      <div class="formTitle">
+        Generate Signature to Prove that you Stamped Document
+        <small>You can generate a cryptographic signature of the document you notarized to prove to others that you are indeed the signer.</small>
+      </div>
+      <div>
+        <label>File <small>The file you notarized.</small></label>
+        <input type="file" id="genSigFile">
+      </div>
+      <div>
+        <button type="submit">Generate Signature</button>
+      </div>
+      <div class="formOutput">
+        <label>Signature <small>The cryptographic signature which you can share.</small></label>
+        <input type="text" id="genSigHash" readonly>
+      </div>
+    </form>
+    <form id="verifySigForm">
+      <div class="formTitle">
+        Verify Signature
+        <small>You can verify that the signature signer actually owns that document they claim to own.</small>
+      </div>
+      <div>
+        <label>File <small>Original file to retrieve fingerprint.</small>
+        </label>
+        <input type="file" id="verifySigFile">
+      </div>
+      <div>
+        <label>Signature <small>The signer's provided signature.</small></label>
+        <input type="text" id="verifySigInput">
+      </div>
+      <div>
+        <button type="submit">Verify Signature of Stamper</button>
+      </div>
+      <div class="formOutput">
+        <output id="verifySigOut"></output>
+      </div>
+    </form>
+  </div>
+  <div id="events">
+    <div class="eventsTitle">Events</div>
+    <ul id="eventsLog"></ul>
+  </div>
+  <div id="faq">
+    <div class="faqTitle">FAQ</div>
+    <dl>
+      <dt>Do I need ETH to use docstamp.it?</dt>
+      <dd><p>Yes, ETH is required to pay gas fees (which is a couple cents).</p></dd>
+      <dt><p>Do you store my documents?</p></dt>
+      <dd><p>No, the contents of your document are never stored anywhere.</p></dd>
+      <dt><p>Are the contents of my documents safe?</p></dt>
+      <dd><p>Yes, only store the cryptographic hash of your documents is stored in the blockchain. The hash is calculated locally on your computer and serves as a fingerprint for your document. It is mathematically impossible to reconstruct your document from this hash.</p></dd>
+
+      <dt>Why should I use docstamp.it?</dd>
+      <dd><p>docstamp.it is implemented using a smart contract on the Ethereum blockchain. When you record a document using docstamp.it, you are guaranteed that this record is immutable. This information cannot be lost, it cannot be modified even by governments and you can always verify this information even if docstamp.it the website is down.</p><dd>
+      <dt><p>Can I use docstamp.it for contracts or any signed documents?</p></dd>
+      <dd>
+      <p>Yes, you can scan a copy of the physically signed contract or other documents and stamp it using this service. When you need to timestamp data so that you can later prove that you possessed it.</p>
+
+      <p>When you need to preserve data integrity - The hash (Keccak-256) that is computed maintains a fingerprint of your document. This changes with any modification to the original document.</p>
+
+      <p>When you want the peace of mind that your document record is stored on a decentralized system that prevents any manipulation.</p>
+
+      <p>When you want to save yourself a trip to the notary.</p>
+      </dd>
+
+      <dt>Can I delete or undo any stamps?</dt>
+      <dd><p>No, all records of stamps will live on the blockchain forever.</p></dd>
+      </dl>
+  </div>
+
+  <script src="/vendor/web3.min.js"></script>
+  <script src="/dist/bundle.js"></script>
+</body>
+</html>
